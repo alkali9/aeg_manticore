@@ -66,7 +66,7 @@ class AEG:
         for jne_addr in targets["jnes"]:
             m.add_hook(jne_addr, constrain_jump)
 
-        m.run(procs=2) 
+        m.run(procs=1) 
 
         magic_values = m.context["magic_values"]
 
